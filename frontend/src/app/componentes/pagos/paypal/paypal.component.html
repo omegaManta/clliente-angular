@@ -1,0 +1,76 @@
+<div class="card-container">
+<div class="card" #paypal>
+    <div style="background-color: rgb(40, 40, 80);" class="card-header">
+      <h2 style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: medium;text-align: center; color: white" >Pagos con PayPal</h2>
+    </div>
+    <div class="card-body">
+      <div class="paypal-buttons-container text-center">
+        <div id="paypal-button-container"></div>
+      </div>
+    </div>
+  </div>
+
+<div class="card">
+    <div style="background-color: rgb(40, 40, 80);" class="card-header">
+        <h2 style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: medium;text-align: center; color: white" >Descripcion del plan escogido</h2>
+        </div>
+    <div class="card-body">
+      <p style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: medium;">{{plan.descripcion}} de {{plan.valor}} dolares</p>
+    </div>
+  </div>
+</div>
+
+
+  <style>
+.card-body {
+  padding: 1.25rem;
+  display: flex; /* Convertir card-body en un contenedor flex */
+  justify-content: center; /* Centrar su contenido horizontalmente */
+}
+
+.paypal-buttons-container {
+  width: fit-content; /* Asegurar que el contenedor no estire los botones */
+}
+
+.paypal-button { /* Apunta a los botones generados por PayPal */
+  font-size: 0.8rem; /* Ajustar el tamaño de fuente del botón */
+  padding: 0.5rem 1rem; /* Ajustar el relleno del botón */
+}
+
+.card-container{
+    display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+
+
+  .card {
+  border-radius: 0.25rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+  width: 25rem;
+  padding: 10px;
+}
+
+.card-header {
+  background-color: #f7f9fc;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.card-title {
+  font-size: 1.5rem;
+}
+
+.card-text {
+  font-size: 1rem;
+}
+
+h2{
+    text-align: center;
+}
+
+p{
+    padding-top: 4rem;
+}
+
+  </style>

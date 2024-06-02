@@ -1,0 +1,25 @@
+<div class="container-fluid py-2" style="display: flex;">
+    <a href="/sitio/servicio-realizado-cliente"><img src="./assets/back.png" height="22px" alt=""></a>
+    <h1 style="text-align: center;font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: larger;color:rgb(47, 47, 113) ;font-weight: bold;padding-left: 20px;">
+      Comentarios de {{titulo.nombre_empresa}}
+    </h1>
+</div>
+<div class="container-fluid py-4" *ngFor="let p of perfil">
+    <div class="card text-justify"  style="background-color: transparent;">
+      <div class="card-header">
+        <h4 style="font-family: Verdana, Geneva, Tahoma, sans-serif; text-align: justify;font-size: small;color: rgb(37, 37, 94);">Servicio realizado {{p.mensaje}}</h4>
+      </div>
+      <div class="card-body">
+        <h5 style="font-family: Verdana, Geneva, Tahoma, sans-serif; text-align: justify;font-size: small;color: rgb(37, 37, 94);" class="card-title"><b>tecnico responsable</b> @{{p.nombre_propietario}}</h5>
+        <h5 style="font-family: Verdana, Geneva, Tahoma, sans-serif; text-align: justify;font-size: small;color: rgb(37, 37, 94);" class="card-title"><b>comentario</b> {{p.comentario}}</h5>
+        <img src="{{p.foto_url}}" height="30px" alt="">
+        <h5 style="font-family: Verdana, Geneva, Tahoma, sans-serif; text-align: justify;font-size: small;color: rgb(37, 37, 94);" class="card-title"><b>el servicio</b> {{p.descripcion}}</h5>
+      </div>
+      <div class="card-footer text-muted">
+        <a  class="btn" style="color: rgb(215, 0, 0);" (click)="eliminarcomentario(p.idob)">
+          <img src="./assets/eliminar-mensaje.png" height="22px" alt="">
+        </a>
+      </div>
+    </div>
+  </div>

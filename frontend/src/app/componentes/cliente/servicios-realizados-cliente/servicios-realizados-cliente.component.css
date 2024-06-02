@@ -1,0 +1,8 @@
+.card:hover .modal-overlay {
+    display: flex;
+  }
+
+
+  .container-fluid::-webkit-scrollbar {
+    display: none;
+  }

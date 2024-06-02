@@ -1,0 +1,17 @@
+<div class="container-fluid py-4"  style="max-height: 350px; overflow-y: auto">
+    <div class="row">
+      <div *ngFor="let p of perfil | paginate: { itemsPerPage: 3, currentPage: p }" class="col-12 col-sm-6 col-md-4 mb-2">
+        <div class="card card-hover-effect" style="background-color: transparent; border-width: 2px; border-color: rgb(37, 37, 94);">
+          <div class="card-body">
+            <h6 formCon style="font-family: Verdana, Geneva, Tahoma, sans-serif; text-align: center;font-size: small;color: rgb(37, 37, 94);"><b>Tecnico escogido</b> {{p.nombres}}</h6>
+            <p style="font-family: Verdana, Geneva, Tahoma, sans-serif; text-align: justify;font-size: small;color: rgb(37, 37, 94);"><b>Fecha de la visita</b> {{p.fecha_visita}}</p>
+            <p style="font-family: Verdana, Geneva, Tahoma, sans-serif; text-align: justify;font-size: small;color: rgb(37, 37, 94);"><b>Hora de la visita</b> {{p.hora_visita}}</p>
+            <p style="font-family: Verdana, Geneva, Tahoma, sans-serif; text-align: justify;font-size: small;color: rgb(37, 37, 94);"><b>Mi ubicacion</b> {{p.direccion}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid py-2 d-flex justify-content-center">
+    <pagination-controls (pageChange)="p = $event" previousLabel="Anterior"  nextLabel="Siguiente"></pagination-controls>
+  </div>

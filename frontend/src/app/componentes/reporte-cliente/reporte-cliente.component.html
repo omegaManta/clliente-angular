@@ -1,0 +1,114 @@
+  <div class="container p-4">
+    <form class="row g-3" (ngSubmit)="buscarVentas()">
+      <div class="col-auto">
+        <label for="Periodo">Periodo</label>
+        <select multiple style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: small; max-width: 400px;" class="form-select form-select-sm" [(ngModel)]="p_periodo" [ngModelOptions]="{standalone: true}">
+            <option style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: small;" *ngFor="let p of periodos" [value]="p.codigo">{{p.periodo}}</option>
+        </select>
+    </div>
+        <div class="col-auto">
+          <label for="Desde">Desde</label>
+          <input style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small;" type="date" class="form-control" [(ngModel)]="p_desde"
+          [ngModelOptions]="{standalone: true}"
+           placeholder="Desde">
+        </div>
+        <div class="col-auto">
+            <label for="Hasta">Hasta</label>
+            <input style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small;" type="date" class="form-control" [(ngModel)]="p_hasta"
+            [ngModelOptions]="{standalone: true}"
+             placeholder="Hasta">
+          </div>
+          <div class="col-auto">
+            <label for="Tipo">Tipo</label>
+            <button (click)="seleccionarTodosDocumentos()" style="border: none;font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: small;font-weight: bold;">Seleccionar todos los documentos</button>
+            <select multiple style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: small; max-width: 400px;" class="form-select form-select-sm" [(ngModel)]="p_tipo" [ngModelOptions]="{standalone: true}"
+            >
+              <option style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: small;" *ngFor="let t of tipos" [value]="t.cod_tipo">{{t.cod_tipo}} {{t.descripcion}}</option>
+          </select>
+        </div>
+        <div class="col-auto">
+            <label for="Bodegas">Bodegas</label>
+            <button (click)="seleccionarTodasbodegas()" style="border: none;font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: small;font-weight: bold;">Seleccionar todas las bodegas</button>
+            <select multiple style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: small; max-width: 400px;" class="form-select form-select-sm" [(ngModel)]="p_bodegas" [ngModelOptions]="{standalone: true}">
+                <option style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: small;" *ngFor="let b of bodega" [value]="b.codigo">{{b.descripcion}}</option>
+            </select>
+        </div>
+        <div class="col-auto">
+            <label for="Clientes">Clientes</label>
+            <button (click)="seleccionarTodosclientes()" style="border: none;font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: small;font-weight: bold;">Seleccionar todas los clientes</button>
+            <select multiple style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: small; max-width: 400px;" class="form-select form-select-sm" [(ngModel)]="p_cli_prov" [ngModelOptions]="{standalone: true}">
+                <option style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: small;" *ngFor="let c of compradores" [value]="c.codigo">{{c.nombre}}</option>
+            </select>
+        </div>
+        <div class="col-auto">
+            <label for="Vendedores">Vendedores</label>
+            <button (click)="seleccionarTodosvendedores()" style="border: none;font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: small;font-weight: bold;">Seleccionar todos los vendedores</button>
+            <select multiple style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: small; max-width: 400px;" class="form-select form-select-sm" [(ngModel)]="p_vendedor" [ngModelOptions]="{standalone: true}">
+                <option style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: small;" *ngFor="let v of negociantes" [value]="v.codigo">{{v.nombre}}</option>
+            </select>
+        </div>
+        <div class="col-auto">
+          <button type="submit" class="btn mb-3" style="border: none;"><img src="./assets/lupa2.png" height="22px" alt=""></button>
+        </div>
+        <div class="col-auto">
+          <button class="btn" (click)="downloadPDF()"><img src="./assets/pdf.png" height="22px" alt=""> <span style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small;">Abrir</span></button>
+        </div>
+      </form>
+    </div>
+<div>
+
+
+
+<div class="table-responsive py-2" id="htmlData">
+  <div style="padding-top: 20px;">
+    <h4 style="text-align: center;font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: medium;font-weight: bold;">{{perfil.nombre_empresa}}</h4>
+    <h5 style="text-align: center;font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: medium;font-weight: bold;">Informe general de ventas</h5>
+  </div>
+    <table class="table table-striped" >
+        <thead>
+            <tr>
+              <th style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: small; text-align: left; color: rgb(25, 25, 43); cursor: pointer;" (click)="ordenarPor('tipo')">Tipo</th>
+                <th style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small; text-align: left;color: rgb(25, 25, 43);">Documento</th>
+                <th style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small; text-align: left;color: rgb(25, 25, 43);">Referencia</th>
+                <th style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small; text-align: left;color: rgb(25, 25, 43);;">Cliente</th>
+                <th style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small; text-align: left;color: rgb(25, 25, 43);">Emision</th>
+                <th style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small; text-align: left;color: rgb(25, 25, 43);">Subtotal</th>
+                <th style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small; text-align: left;color: rgb(25, 25, 43);">Descuento</th>
+                <th style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small; text-align: left;color: rgb(25, 25, 43);">Iva</th>
+                <th style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small; text-align: left;color: rgb(25, 25, 43);">Total</th>
+                <th style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small; text-align: left;color: rgb(25, 25, 43);">Vendedor</th>
+                <th style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small; text-align: left;color: rgb(25, 25, 43);">Vence</th>
+                <th style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small; text-align: left;color: rgb(25, 25, 43);">Tipo de venta</th>
+                <th style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small; text-align: left;color: rgb(25, 25, 43);">Nro. Asiento</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let v of ventas">
+                <td style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small; text-align: left; color: rgb(25, 25, 43); background-color: rgb(146, 123, 123);">{{v.tipo}}</td>
+                <td style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small;text-align: left; color: rgb(25, 25, 43); background-color: white;">{{v.documento}}</td>
+                <td style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small;text-align: left; color: rgb(25, 25, 43); background-color: white;">{{v.n_referencia}}</td>
+                <td style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small;text-align: left; color: rgb(25, 25, 43); background-color: white;">{{v.detalle_mov}}</td>
+                <td style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small;text-align: left; color: rgb(25, 25, 43); background-color: white;">{{v.fecha_emision | date:'yyyy-MM-dd'}}</td>
+                <td style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small; text-align: left; color: rgb(25, 25, 43); background-color: white;">{{v.subtotal.toFixed(2)}}</td>
+                <td style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small;text-align: left; color: rgb(25, 25, 43); background-color: white;">{{v.descuento1.toFixed(2)}}</td>
+                <td style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small;text-align: left; color: rgb(25, 25, 43); background-color: white;">{{v.iva.toFixed(2)}}</td>
+                <td style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small;text-align: left; color: rgb(25, 25, 43); background-color: white;">{{v.total.toFixed(2)}}</td>
+                <td style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small;text-align: left; color: rgb(25, 25, 43); background-color: white;"> {{ obtenerNombreVendedor(v.vendedor) }}</td>
+                <td style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small; text-align: left; color: rgb(25, 25, 43); background-color: white;">{{v.fecha_vence | date:'yyyy-MM-dd'}}</td>
+                <td style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small;text-align: left; color: rgb(25, 25, 43); background-color: white;">{{v.n_referencia}}</td>
+                <td style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small;text-align: left; color: rgb(25, 25, 43); background-color: white;">{{v.detalle_mov}}</td>
+            </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="4" style="text-align: right; font-weight: bold;">Total documentos:</td>
+            <td  style="text-align: left; font-weight: bold;">{{ventas.length}}</td>
+            <td style="text-align: left; font-weight: bold;">{{ calcularSuma('subtotal').toFixed(2) }}</td>
+            <td style="text-align: left; font-weight: bold;">{{ calcularSuma('descuento1').toFixed(2) }}</td>
+            <td style="text-align: left; font-weight: bold;">{{ calcularSuma('iva').toFixed(2) }}</td>
+            <td style="text-align: left; font-weight: bold;">{{ calcularSuma('total').toFixed(2) }}</td>
+          </tr>
+        </tfoot>
+    </table>
+</div>
+</div>

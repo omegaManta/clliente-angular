@@ -1,0 +1,80 @@
+  <div style="display: flex;">
+    <li class="nav-item dropdown" style="list-style: none;padding-right: 50px;display: flex;">
+      <a style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: small;" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><img src="./assets/categoria.png"  height="18px" alt=""> Categorias</a>
+      <ul style="background-color: rgb(25, 25, 43);" class="dropdown-menu">
+        <li *ngFor="let c of categorias">
+          <a style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: small; color: white;" class="dropdown-item" [routerLink]="['/categoria',c.idcategoria]" >
+            {{c.descripcion}}
+          </a></li>
+      </ul>
+    </li>
+    <h1 style="text-align: center;font-family: Verdana, Geneva, Tahoma, sans-serif;padding-bottom: 40px;font-size: large;font-weight: bold;">Detalle de servicio {{detalle.descripcion}}</h1>
+    <div *ngFor="let p of pedidos">
+    <button type="button" class="btn position-relative" (click)="ir()">
+      <img src="./assets/carrito-de-compras.png" height="20px" alt="">
+      <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+        {{p.count}}
+        <span class="visually-hidden">unread messages</span>
+      </span>
+    </button>
+  </div>
+  </div>
+  
+  <div style="display: flex; padding-left: 20px;">
+    <div class="card mb-3" style="max-width: 500px;">
+      <div class="row g-0">
+        <div class="col-md-4" style="padding: 10px;">
+          <div style="border-right:  1px ridge rgb(28, 139, 186);">
+          <div style="padding: 10px;">
+            <a routerLink="/home">
+              <img src="./assets/casa.png" height="18px" alt="Inicio">
+            </a>
+          </div>
+          <img src="{{detalle.foto_url}}" class="img-fluid rounded-start" alt="Foto del servicio">
+        </div>
+        </div>
+        <div class="col-md-8" style="background-color: #ffffff;">
+          <form class="row g-3" [formGroup]="pedidoForm" (ngSubmit)="crearpedido()">
+            <div class="card-body">
+              <h5 class="card-title" style="font-family: 'Arial', sans-serif; font-size: medium; color: rgb(29, 29, 60); text-align: center; font-weight: bold;">{{detalle.descripcion}}</h5>
+              <p class="card-text" style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: medium; color: rgb(29, 29, 60);text-align: center;">Categoría {{detalle.categoriadescripcion}}</p>
+              <p hidden class="card-text" style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: small; color: rgb(29, 29, 60);">Categoría {{detalle.idcategoria}}</p>
+              <div class="detalle-servicio" style="max-height: 250px; overflow-y: auto;">
+                <input hidden type="number" [value]="perfil.idempresa" formControlName="perfil.idempresa">
+                <input hidden type="number" [value]="detalle.idservicio" formControlName="detalle.idservicio">
+                <p class="card-text" style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: small; color: rgb(29, 29, 60); font-weight: bold;text-align: center;">
+                  Precio {{detalle.precio}}$
+                </p>
+                <div class="col-auto" style="text-align: center;">
+                  <!-- Botón Añadir al carrito -->
+                  <button type="submit" class="btn mb-3" data-toggle="popover" title="Añadir al carrito" data-content=""
+                    style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: 1rem; font-weight: bold; border: none; background-color: transparent;">
+                    <img src="./assets/comercio-electronico.png" height="25px" alt="Añadir al carrito">
+                  </button>
+                  <!-- Botón Añadir a lista de deseos -->
+                  <button type="button" (click)="crearfavorito(perfil.idempresa,detalle.idservicio)" class="btn mb-3" data-toggle="popover" title="Añadir a lista de deseos" data-content=""
+                    style="font-family: 'Arial', sans-serif; font-size: medium; font-weight: bold; border: none; background-color: transparent;">
+                    <img src="./assets/deseo.png" height="25px" alt="Añadir a lista de deseos">
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div style="padding-top: 20px; padding-left: 5px; text-align: center;">
+      <h6 style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: small; font-weight: bold;">Trailer del servicio</h6>
+      <video src="{{detalle.video}}" controls autoplay loop height="150px" style="padding-left: 100px;"></video>
+    </div>
+  </div>
+  
+
+<script>
+  $(function () {
+    $('[data-toggle="popover"]').popover({
+      trigger: 'hover',
+      placement: 'bottom',
+    });
+  });
+</script>

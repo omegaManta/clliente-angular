@@ -1,0 +1,129 @@
+<div class="container-fluid py-2"  style="display: flex;">
+  <div style="padding-right: 70px;">
+    <a routerLink="/home"><img src="./assets/casa.png" height="18px" alt=""></a>
+  </div>
+  <h1 
+  style="text-align: center;font-family: Verdana, Geneva, Tahoma, sans-serif;
+   font-size: larger;color:rgb(47, 47, 113) ;font-weight: bold;">Pedidos del cliente {{titulo.nombre_empresa}}
+   </h1>
+   <li class="nav-item dropdown" style="list-style: none;padding-left: 50px;">
+    <a style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: small;" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><img src="./assets/categoria.png"  height="18px" alt=""> Categorias</a>
+    <ul style="background-color: rgb(25, 25, 43);" class="dropdown-menu">
+      <li *ngFor="let c of categorias">
+        <a style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: small; color: white;" class="dropdown-item" [routerLink]="['/categoria',c.idcategoria]" >
+          {{c.descripcion}}
+        </a></li>
+    </ul>
+  </li>
+  <div *ngFor="let c of completados" style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: small;color: rgb(25, 25, 43);">
+    <button type="button" class="btn position-relative" (click)="ir2()" style="border: none;">
+      <img src="./assets/dinero.png" height="18px" alt="">
+      <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
+        {{c.count}}
+        <span class="visually-hidden">unread messages</span>
+      </span>
+    </button>
+  </div>
+</div>
+<div *ngFor="let p of pedidos">
+<h5 style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: medium;padding-left: 20px;padding-top: 20px;">Tienes  <b>{{p.count}}</b> servicios a tu carrito</h5>
+</div>
+
+<div class="container-fluid py-4"  style="max-height: 550px; overflow-y: auto">
+  <div class="row">
+    <div *ngFor="let p of perfil | paginate: { itemsPerPage: 3, currentPage: p }" class="col-12 col-sm-6 col-md-4 mb-2">
+      <div class="card card-hover-effect" style="background-color: white;">
+        <div class="card-body" style="padding: 10px;">
+          <div style="text-align: center;">
+            <img src="{{p.foto_url}}" style="height: 40px;" alt="">
+          </div>
+          <p style="font-family: Verdana, Geneva, Tahoma, sans-serif; text-align: justify;font-size: small;color: rgb(37, 37, 94);"><b>Servicio</b> {{p.descripcion}}</p>
+          <p style="font-family: Verdana, Geneva, Tahoma, sans-serif; text-align: justify;font-size: small;color: rgb(37, 37, 94);"><b>Precio</b> {{p.precio}}$</p>
+          <p style="font-family: Verdana, Geneva, Tahoma, sans-serif; text-align: justify;font-size: small;color: rgb(37, 37, 94);"><b>Estado</b> {{p.estado}}</p>
+          <p style="font-family: Verdana, Geneva, Tahoma, sans-serif; text-align: justify;font-size: small;color: rgb(37, 37, 94);"><b>Fecha solicitud</b> {{p.fecha_hora | date:'yyyy-MM-dd'}}</p>
+          <a class="btn" style="font-family: Verdana, Geneva, Tahoma, sans-serif; text-align: justify;font-size: small;color: rgb(236, 62, 62);"
+          (click)="eliminarpedido(p.idpedido)">
+          Quitar <img src="./assets/quitar.png" height="18px" alt="">
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card" style="max-width: 300px;" #paypal>
+    <div class="card-header" style="background-color: transparent">
+      <h2 class="text-center" style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: medium;color: black;">Pagos con PayPal</h2>
+    </div>
+    <div class="card-body">
+      <div class="text-center mb-3">
+        <div id="paypal-button-container"></div>
+      </div>
+      <div class="text-center" *ngFor="let t of totales">
+        <p style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: small; color: rgb(37, 37, 94); margin-bottom: 0;"><b>Total a pagar:</b> {{ t.valor }}$</p>
+        <a class="btn btn-secondary btn-sm" href="/home" style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: small; font-weight: bold;">
+          <img src="./assets/compras2.png" height="22px" alt="" style="margin-right: 5px;">
+          Seguir comprando
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid py-2 d-flex justify-content-center">
+  <pagination-controls (pageChange)="p = $event" previousLabel="Anterior"  nextLabel="Siguiente"></pagination-controls>
+</div>
+
+<h1 
+  style="text-align: center;font-family: Verdana, Geneva, Tahoma, sans-serif;
+   font-size: larger;color:rgb(47, 47, 113) ;font-weight: bold;">Vista previa de su recibo
+   </h1>
+
+<div id="content" style="padding-left: 30px;">
+  <div>
+      <h1 style="font-family: Verdana, Geneva, Tahoma, sans-serif;text-align: justify; color: rgb(25, 25, 43);">Recibo <img src="./assets/PayPal.png" height="20px" alt=""> 00{{pedidos.length}}</h1>
+  <div
+   style="border-color: black;border-width: 2px;border-style: solid; width: 600px;
+   font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small;text-align: justify; color: rgb(25, 25, 43); position: relative;">
+      <p style="padding: 5px;"><b>Pagado con </b><img src="./assets/PayPal.png" height="20px" alt=""></p>
+      <p style="padding: 5px;"><b>Fecha</b> {{today}}</p>
+      <p style="padding: 5px;"><b>Recibo para</b> {{titulo.nombre_empresa}}</p>
+      <p style="padding: 5px;"><b>Ruc</b> {{titulo.ruc}}</p>
+      <p style="padding: 5px;"><b>Correo electronico</b> {{titulo.email}}</p>
+      <p style="padding: 5px;"><b>Telefono</b> {{titulo.telefono}}</p>
+      <p style="padding: 5px;"><b>Direccion</b> {{titulo.direccion}}</p>
+      <p style="padding: 5px;"><b>Ciudad</b> {{titulo.ciudad}}</p>
+  </div>
+  
+  
+  <div style="max-height: 200px; overflow-y: auto;padding-top: 20px;width: 800px;">
+  <table class="table table-bordered border-light" style="width: 500px;">
+      <thead>
+          <tr>
+            <th scope="col" 
+            style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small;text-align: center; color: rgb(25, 25, 43);">Descripcion</th>
+            <th scope="col"
+            style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small;text-align: center; color: rgb(25, 25, 43);">Precio unitario</th>
+            <th scope="col" 
+            style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small;text-align: center; color: rgb(25, 25, 43);">Cantidad</th>      
+             <th scope="col"
+             style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small;text-align: center; color: rgb(25, 25, 43);">Importe</th>
+          </tr>
+        </thead>
+        <tbody class="table-group-divider">
+          <tr *ngFor="let r of recibo">
+            <td style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small;text-align: center; color: rgb(25, 25, 43);">{{r.descripcion}}</td>
+            <td style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small;text-align: center; color: rgb(25, 25, 43);">{{r.precio}}</td>
+            <th style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small;text-align: center; color: rgb(25, 25, 43);">{{r.count}}</th>
+            <td style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small;text-align: center; color: rgb(25, 25, 43);">{{r.sum}}</td>
+          </tr>
+        </tbody>
+    </table>
+  </div>
+  </div>
+  
+  <div>
+  <div style="border-top: 1px solid black;display: flex;width: 410px;border-bottom: 1px solid black;" *ngFor="let t of totales">
+      <label for="Total a pagar" style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small;text-align: justify; color: rgb(25, 25, 43)"><b>Pagado</b></label>
+  <p style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small;text-align: justify; color: rgb(25, 25, 43);padding-left: 315px;">{{t.valor}}$</p>
+  </div>
+  </div>
+  </div>

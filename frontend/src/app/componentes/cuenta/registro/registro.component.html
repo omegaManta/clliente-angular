@@ -1,0 +1,226 @@
+<style>
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center; /* Centra verticalmente en la página */
+        height: 100vh;
+        margin-top: -90px;
+    }
+
+    .form-container {
+        background-color: rgba(255, 255, 255, 0.8);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        width: 100%;
+        max-width: 500px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+           }
+
+    h3 {
+        text-align: center;
+        color: rgb(10, 10, 87);
+    }
+
+    form {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 10px;
+        width: 100%;
+    }
+
+    label {
+        color: rgb(10, 10, 87);
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+        padding: 10px 0;
+        border: none;
+        width: calc(50% - 10px); /* Cambia el ancho al 50% */
+        outline: none;
+        border-bottom: 1px solid rgb(25, 25, 43);
+    }
+
+    input[type="submit"] {
+        background-color: rgb(25, 25, 43);
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 60%;
+    }
+
+    input[type="submit"]:hover {
+        background-color: rgb(25, 25, 43);
+    }
+
+    .register-link,
+    .login-link {
+        margin-top: 10px;
+        text-align: center;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    input {
+        height: 40px;
+        font-size: small;
+    }
+
+
+    .form-container .imagen_arriba {
+      max-width: 100%;
+      height: 50px;
+      margin: 0 auto;
+    }
+
+
+  .input-group {
+  display: flex;
+  align-items: center;
+  border: none;
+}
+
+.input-icon {
+ height: 20px;
+}
+
+h6{
+    color: red;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: small;
+}
+
+</style>
+
+
+
+<div class="container">
+    <div *ngFor="let a of ayuda" style="padding-right: 50px;text-align: center;">
+        <p style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small;
+                color: rgb(28, 28, 82);font-weight: bold;">
+          Video de ayuda 
+        </p>
+        <a href="{{a.video}}" target="_blank" class="btn">
+          <img src="./assets/video.png" height="25px" alt="">
+        </a>
+      </div>
+    <div *ngFor="let c of contrato" style="padding-right: 50px;text-align: center;">
+        <p style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small;
+                color: rgb(28, 28, 82);font-weight: bold;">
+          Descarga & firma el contrato
+        </p>
+        <a href="javascript:void(0);" (click)="descargarContrato(c.contrato)">
+          <img src="./assets/pdf.png" height="30px" alt="">
+        </a>
+      </div>
+    <div class="form-container">
+        <img src="./assets/cuenta.png" class="imagen_arriba" />
+        <form class="login-form" [formGroup]="empresaForm" (ngSubmit)="crearEmpresa()">
+            <h3 style="font-family: Verdana, Geneva, Tahoma, sans-serif;">Create Account</h3>
+            <input style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small;" placeholder="RUC" type="text" formControlName="ruc" required>
+            <div *ngIf="empresaForm.get('ruc').hasError('required') && empresaForm.get('ruc').touched">
+                <h6 >RUC es requerido</h6>
+            </div>
+            <div *ngIf="empresaForm.get('ruc').hasError('minlength')">
+                <h6>RUC debe tener al menos 13 digitos</h6>
+            </div>
+            <div *ngIf="empresaForm.get('ruc').hasError('maxlength')">
+                <h6>RUC no debe tener más de 20 digitos</h6>
+            </div>
+            <input style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small;" placeholder="Correo Electrónico" type="text" formControlName="email" required>
+            <div *ngIf="empresaForm.get('email').hasError('required') && empresaForm.get('email').touched">
+                <h6>Email es requerido</h6>
+            </div>
+            <div *ngIf="empresaForm.get('email').hasError('pattern')">
+                <h6>Email invalido</h6>
+            </div>
+            <input style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: small;" placeholder="Teléfono" type="text" formControlName="telefono" required>
+            <div *ngIf="empresaForm.get('telefono').hasError('required') && empresaForm.get('telefono').touched">
+                <h6>Telefono es requerido</h6>
+            </div>
+            <div *ngIf="empresaForm.get('telefono').hasError('minlength')">
+                <h6>Telefono debe tener al menos 10 digitos</h6>
+            </div>
+            <div *ngIf="empresaForm.get('telefono').hasError('maxlength')">
+                <h6>Telefono no debe tener más de 10 digitos</h6>
+            </div>
+            <input style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small;" placeholder="Dirección" type="text" formControlName="direccion" required>
+            <div *ngIf="empresaForm.get('direccion').hasError('required') && empresaForm.get('direccion').touched">
+                <h6>Direccion es requerida</h6>
+            </div>
+            <div *ngIf="empresaForm.get('direccion').hasError('minlength')">
+                <h6>Direccion debe tener al menos 10 caracteres</h6>
+            </div>
+            <input style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small;" placeholder="Nombre de la Empresa" type="text" formControlName="nombre_empresa" required>
+            <div *ngIf="empresaForm.get('nombre_empresa').hasError('required') && empresaForm.get('nombre_empresa').touched">
+                <h6>Nombre de la empresa es requerido</h6>
+            </div>
+            <div *ngIf="empresaForm.get('nombre_empresa').hasError('minlength')">
+                <h6>Nombre de la empresa  debe tener al menos 3 caracteres</h6>
+            </div>
+            <div *ngIf="empresaForm.get('nombre_empresa').hasError('maxlength')">
+                <h6>Nombre de la empresa no debe tener mas de 100 caracteres</h6>
+            </div>
+            <input style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small;" placeholder="Nombre de Contacto" type="text" formControlName="contacto" required>
+            <div *ngIf="empresaForm.get('contacto').hasError('required') && empresaForm.get('contacto').touched">
+                <h6>Nombre de algun contacto es requerido</h6>
+            </div>
+            <div *ngIf="empresaForm.get('contacto').hasError('minlength')">
+                <h6>Nombre de algun contacto debe tener al menos 3 caracteres</h6>
+            </div>
+            <div *ngIf="empresaForm.get('nombre_empresa').hasError('maxlength')">
+                <h6>Nombre de algun contacto no debe tener mas de 70 caracteres</h6>
+            </div>       
+            <input style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small;" placeholder="Ciudad" type="text" formControlName="ciudad"  required>
+            <div *ngIf="empresaForm.get('ciudad').hasError('required') && empresaForm.get('ciudad').touched">
+                <h6>Ciudad es requerida</h6>
+            </div>
+            <div *ngIf="empresaForm.get('ciudad').hasError('minlength')">
+                <h6>Ciudad debe tener al menos 3 caracteres</h6>
+            </div>
+            <div *ngIf="empresaForm.get('ciudad').hasError('maxlength')">
+                <h6>Ciudad no debe tener mas de 60 caracteres</h6>
+            </div>
+            <input style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: small;" placeholder="Contraseña" type="password" formControlName="password" required>
+            <div *ngIf="empresaForm.get('password').hasError('required') && empresaForm.get('password').touched">
+                <h6>Contraseña es requerida</h6>
+            </div>
+            <div *ngIf="empresaForm.get('password').hasError('minlength')">
+                <h6>Contraseña debe tener al menos 8 caracteres</h6>
+            </div>
+            <div *ngIf="empresaForm.get('password').hasError('maxlength')">
+                <h6>Contraseña no debe tener mas de 20 caracteres</h6>
+            </div>
+            <div class="form-group">
+                <select style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small;background-color: rgb(25, 25, 43); color: white;" class="form-select form-select-sm" formControlName="idplan">
+                    <option  style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small; color: white;" value="">Seleccione plan</option>
+                    <option style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small; color: white;" *ngFor="let p of planes" value="{{p.idplan}}">{{p.descripcion}} {{p.valor}}$</option>
+                   </select>
+            </div>
+            <div *ngIf="empresaForm.get('idplan').hasError('required') && empresaForm.get('idplan').touched">
+                <h6>Plan es requerido</h6>
+            </div>
+            <div class="form-group">
+                <label style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small;font-weight: bold;">Subir contrato firmado</label>
+                <input type="file"
+                 style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small;
+                 background-color: transparent;color: rgb(8, 8, 59)" formControlName="contrato" accept=".pdf"
+                 (change)="onFileChange($event)">
+           </div>
+           <div *ngIf="empresaForm.get('contrato').hasError('required') && empresaForm.get('contrato').touched">
+            <h6>Subir el contrato con firma electronica</h6>
+        </div>
+            <input style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small;" type="submit" value="¡Suscribirme!" >
+            <a style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small; color: red;" class="btn" href="/sitio/login">Cancelar </a>
+        </form>
+    </div>
+</div>

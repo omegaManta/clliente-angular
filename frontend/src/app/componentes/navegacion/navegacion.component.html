@@ -1,0 +1,57 @@
+<div *ngFor="let l of names"  class="container-fluid py-2 " style="background-image: url('l.logo')">
+  <nav class="navbar navbar-expand-lg fixed-top" style="background-color: rgb(28, 139, 186); height: 40px;">
+    <div class="container-fluid">
+      <a *ngFor="let l of nombres" class="navbar-brand"  routerLink="/home"><img src="{{l.logo}}" height="15px" alt=""><small  style="font-family: Verdana, Geneva, Tahoma, sans-serif;color: white;font-size: small;"> {{l.nombre}}</small>
+      </a>
+      <div class="d-flex align-items-center">
+        <button class="navbar-toggler ms-auto" style="border: none;"  type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar">
+          <span class="navbar-toggler-icon" ></span>
+        </button>
+      </div>
+      <div class="offcanvas offcanvas-end" style="background-color:  rgb(25, 25, 43);" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" style="font-family: Verdana, Geneva, Tahoma, sans-serif;color: white;font-size: small;" id="offcanvasNavbarLabel">MENU</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" style="height: 40px; color: white;" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" routerLink="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="font-family: Verdana, Geneva, Tahoma, sans-serif;color: white;font-size: small;background-color: rgb(42, 42, 86);">
+                Mas Opciones
+              </a>
+              <ul class="dropdown-menu">
+                <li><a style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small;" class="dropdown-item" routerLink="/cuenta"><img src="./assets/cuenta.png" height="15px" alt=""> Crear cuenta</a></li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li><a class="btn" style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small;" class="dropdown-item" (click)="exit()"><img src="./assets/salida.png" height="15px" alt=""> Cerrar sesion</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+</div>
+
+
+
+
+
+
+<footer class="fixed-bottom text-white" style="height: 40px;background-color:  white" >
+  <div class="container-fluid py-3">
+    <div class="row">
+      <div class="col-md-4">
+        <p style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small; text-align: center;color: rgb(28, 139, 186);">&copy; 2023 OMEGA'S. Todos los derechos reservados.</p>
+      </div>
+      <div class="col-md-4">
+        <p style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small; text-align: center;color: rgb(28, 139, 186);">Contáctanos: trabajos-omega@hotmail.com</p>
+      </div>
+      <div class="col-md-4">
+        <p style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small;text-align: center;color: rgb(28, 139, 186);">Sobre nosotros: 
+          sistemasomega.blogspot.com</p>
+      </div>
+    </div>
+  </div>
+</footer>

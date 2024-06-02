@@ -1,0 +1,17 @@
+footer {
+    height: 100px;
+    background-color: white;
+    color: rgb(28, 139, 186);
+  }
+  
+  footer .container-fluid {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+  
+  footer p {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: small;
+    text-align: center;
+    color: rgb(28, 139, 186);
+  }

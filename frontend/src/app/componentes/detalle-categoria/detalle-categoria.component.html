@@ -1,0 +1,26 @@
+    <div>
+      <div style="padding-bottom: 10px;padding-left: 5px;">
+        <a routerLink="/home"><img src="./assets/casa.png" height="20px" alt=""></a>
+      </div>
+        <h1 style="text-align: center;font-family: Verdana, Geneva, Tahoma, sans-serif;padding-bottom: 40px;font-size: large;font-weight: bold;">CATEGORIA {{categoria.categoria}}</h1>
+      </div>
+
+
+<div class="container-fluid py-2" style="max-height: 300px; overflow-y: auto;">
+    <div class="row">
+      <div *ngFor="let s of servicios | paginate: { itemsPerPage: 6, currentPage: p }" class="col-12 col-sm-6 col-md-4 mb-2">
+        <div class="card card-hover-effect" style="background-color: transparent;color: white; border: none;">
+          <div class="card-body">
+            <div class="text-center">
+              <a [routerLink]="['/servicio',s.idservicio]"><img src="{{s.foto_url}}" style="border: none;height: 85px;cursor: pointer;" alt="" class="img-fluid"></a>
+            </div>
+            <h6 formCon style="font-family: Verdana, Geneva, Tahoma, sans-serif; text-align: center;font-size: small;font-weight: bold;color: rgb(25, 25, 43);">{{s.descripcion}}</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid py-2 d-flex justify-content-center">
+    <pagination-controls (pageChange)="p = $event" style="font-family: Verdana, Geneva, Tahoma, sans-serif;font-size: small;" previousLabel="Anterior"  nextLabel="Siguiente"></pagination-controls>
+  </div>

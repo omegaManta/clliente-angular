@@ -1,0 +1,48 @@
+<div class="container-fluid py-2"  style="display: flex;">
+    <div style="padding-right: 70px;">
+      <a routerLink="/home"><img src="./assets/casa.png" height="18px" alt=""></a>
+    </div>
+    <h1 
+    style="text-align: center;font-family: Verdana, Geneva, Tahoma, sans-serif;
+     font-size: larger;color:rgb(47, 47, 113) ;font-weight: bold;">Servicios completados del cliente {{titulo.nombre_empresa}}
+     </h1>
+     <li class="nav-item dropdown" style="list-style: none;padding-left: 50px;">
+      <a style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: small;" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><img src="./assets/categoria.png"  height="18px" alt=""> Categorias</a>
+      <ul style="background-color: rgb(25, 25, 43);" class="dropdown-menu">
+        <li *ngFor="let c of categorias">
+          <a style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: small; color: white;" class="dropdown-item" [routerLink]="['/categoria',c.idcategoria]" >
+            {{c.descripcion}}
+          </a></li>
+      </ul>
+    </li>
+    <div *ngFor="let p of pedidos" style="padding-top: 10px;">
+      <button type="button" class="btn position-relative" (click)="ir()" style="border: none;">
+        <img src="./assets/carrito-de-compras.png" height="18px" alt="">
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+          {{p.count}}
+          <span class="visually-hidden">unread messages</span>
+        </span>
+      </button>
+    </div>
+  </div>
+  <div *ngFor="let c of completados">
+    <h5 style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: medium;padding-left: 20px;padding-top: 20px;">Tienes <b>{{c.count}}</b> recibos</h5>
+    </div>
+  <div class="container-fluid py-4"  style="max-height: 400px; overflow-y: auto">
+    <div class="row">
+      <div *ngFor="let p of perfil | paginate: { itemsPerPage: 3, currentPage: p }" class="col-12 col-sm-6 col-md-4 mb-2">
+        <div class="card card-hover-effect" style="background-color: transparent; border-width: 2px; border-color: rgb(37, 37, 94);">
+          <div class="card-body">
+            <h6 formCon style="font-family: Verdana, Geneva, Tahoma, sans-serif; text-align: center;font-size: small;color: rgb(37, 37, 94);"><b>Cliente</b> {{p.nombre_empresa}}</h6>
+            <a style="padding-left: 160px;" href="javascript:void(0);" (click)="descargarecibo(p.recibo,p.nombre_empresa)">
+              <img src="./assets/descargar-pdf.png" height="30px" alt="">
+            </a>
+          </div>
+          <span style="font-family: Verdana, Geneva, Tahoma, sans-serif; text-align: center;font-size: small;color: rgba(37, 37, 94, 0.5);">Creado el {{p.fecha_creacion | date:'yyyy-MM-dd'}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid py-2 d-flex justify-content-center">
+    <pagination-controls (pageChange)="p = $event" previousLabel="Anterior"  nextLabel="Siguiente"></pagination-controls>
+  </div>

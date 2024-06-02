@@ -1,0 +1,27 @@
+<div class="container-fluid py-2"  style="display: flex;">
+    <div style="padding-right: 70px;">
+      <a routerLink="/home"><img src="./assets/casa.png" height="18px" alt=""></a>
+    </div>
+    <h1 
+    style="text-align: center;font-family: Verdana, Geneva, Tahoma, sans-serif;
+     font-size: larger;color:rgb(47, 47, 113) ;font-weight: bold;">Deseos del cliente {{perfil.nombre_empresa}}
+     </h1>
+  </div>
+  
+  <div class="container-fluid py-4"  style="max-height: 350px; overflow-y: auto">
+    <div class="row">
+      <div *ngFor="let d of deseos | paginate: { itemsPerPage: 3, currentPage: p }" class="col-12 col-sm-6 col-md-4 mb-2">
+        <div class="card card-hover-effect" style="background-color: transparent;border: none;">
+          <div class="card-body">
+            <div style="text-align: center;">
+              <img src="{{d.foto_url}}" style="height: 40px;" alt="">
+            </div>
+            <p style="font-family: Verdana, Geneva, Tahoma, sans-serif; text-align: center;font-size: small;color: rgb(37, 37, 94);"><b>Servicio</b> {{d.descripcion}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid py-2 d-flex justify-content-center">
+    <pagination-controls (pageChange)="p = $event" previousLabel="Anterior"  nextLabel="Siguiente"></pagination-controls>
+  </div>
